@@ -4,10 +4,13 @@ const path = require('path')
 
 module.exports = (_, argsv) => ({
   devServer: {
-    port: 8080,
+    port: 8080
   },
   output: {
-    publicPath: argsv.mode === 'development' ? 'http://localhost:8080/' : 'https://prod-test-host.vercel.app/'
+    publicPath:
+      argsv.mode === 'development'
+        ? 'http://localhost:8080/'
+        : 'https://prod-test-host.vercel.app/'
   },
   module: {
     rules: [
@@ -27,13 +30,11 @@ module.exports = (_, argsv) => ({
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: 'app2',
-      library: { type: 'var', name: 'app2' },
+      name: 'host',
       filename: 'remoteEntry.js',
-      exposes: {
-        './App': './src/App'
-      },
-      shared: ['react', 'react-dom']
+      remotes: {},
+      exposes: {},
+      shared: require('./package.json').dependencies
     }),
     new HtmlWebpackPlugin({
       template: './public/index.html'
