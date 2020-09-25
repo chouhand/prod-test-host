@@ -11,7 +11,7 @@ const Button = () => {
   return (
     <>
       <h1>{counter}</h1>
-      <button onClick={handleClick}>Click</button>
+  <button onClick={handleClick}>Clicked {counter} times</button>
     </>
   )
 }
